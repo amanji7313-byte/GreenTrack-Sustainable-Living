@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-heading">
+    <div><p class="eyebrow">YOUR ACTIVITY</p><h1>Record history</h1></div>
+    <a class="button-link" href="{{ url_for('add_record') }}">+ Add record</a>
+</div>
+
+{% if records %}
+<div class="table-wrap">
+<table>
+    <thead><tr><th>Date</th><th>Electricity</th><th>Water</th><th>Waste</th><th>Eco action</th><th></th></tr></thead>
+    <tbody>
+    {% for item in records %}
+    <tr>
+        <td>{{ item.record_date }}</td>
+        <td>{{ item.electricity }} kWh</td>
+        <td>{{ item.water }} L</td>
+        <td>{{ item.waste }} kg</td>
+        <td>{{ item.eco_action or "—" }}</td>
+        <td>
+            <form class="inline-form" method="POST" action="{{ url_for('delete_record', record_id=item.id) }}">
+                <button class="delete-button" type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% else %}
+<div class="empty-state"><h3>Nothing here yet</h3><p>Your saved records will appear on this page.</p></div>
+{% endif %}
+{% endblock %}

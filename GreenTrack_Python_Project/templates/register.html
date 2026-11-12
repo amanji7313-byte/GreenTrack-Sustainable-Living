@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-card">
+    <p class="eyebrow">GET STARTED</p>
+    <h1>Create your account</h1>
+    <p class="muted">Start keeping a simple record of your daily resource use.</p>
+    <form method="POST">
+        <label>Your name</label>
+        <input type="text" name="name" required>
+        <label>Email address</label>
+        <input type="email" name="email" required>
+        <label>Password (at least 6 characters)</label>
+        <input type="password" name="password" minlength="6" required>
+        <button type="submit">Create account</button>
+    </form>
+    <p class="small">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+</div>
+{% endblock %}

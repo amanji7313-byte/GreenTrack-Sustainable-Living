@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="welcome">
+    <div>
+        <p class="eyebrow">YOUR SUSTAINABILITY SPACE</p>
+        <h1>Hello, {{ session.get("user_name") }} 👋</h1>
+        <p class="muted">A simple record of everyday choices and resource use.</p>
+    </div>
+    <a class="button-link" href="{{ url_for('add_record') }}">+ Add today's record</a>
+</section>
+
+<h2>This month's overview</h2>
+<div class="stats">
+    <div class="stat-card"><span>⚡ Electricity</span><strong>{{ "%.1f"|format(totals.electricity) }} kWh</strong></div>
+    <div class="stat-card"><span>💧 Water</span><strong>{{ "%.1f"|format(totals.water) }} L</strong></div>
+    <div class="stat-card"><span>♻️ Waste</span><strong>{{ "%.1f"|format(totals.waste) }} kg</strong></div>
+    <div class="stat-card"><span>📅 Records</span><strong>{{ totals.days }}</strong></div>
+</div>
+
+<div class="section-heading">
+    <h2>Recent records</h2>
+    <a href="{{ url_for('history') }}">View all →</a>
+</div>
+
+{% if records %}
+<div class="table-wrap">
+<table>
+    <thead><tr><th>Date</th><th>Electricity</th><th>Water</th><th>Waste</th><th>Eco action</th></tr></thead>
+    <tbody>
+    {% for item in records %}
+    <tr>
+        <td>{{ item.record_date }}</td>
+        <td>{{ item.electricity }} kWh</td>
+        <td>{{ item.water }} L</td>
+        <td>{{ item.waste }} kg</td>
+        <td>{{ item.eco_action or "—" }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% else %}
+<div class="empty-state">
+    <h3>No records yet</h3>
+    <p>Add your first daily record to start your dashboard.</p>
+    <a class="button-link" href="{{ url_for('add_record') }}">Add a record</a>
+</div>
+{% endif %}
+{% endblock %}

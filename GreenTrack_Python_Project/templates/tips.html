@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<p class="eyebrow">SMALL STEPS, BETTER HABITS</p>
+<h1>Everyday eco tips</h1>
+<p class="muted">A few practical ideas you can try in daily life.</p>
+<div class="tips-grid">
+    {% for suggestion in suggestions %}
+    <div class="tip-card"><span>🌿</span><p>{{ suggestion }}</p></div>
+    {% endfor %}
+</div>
+{% endblock %}
